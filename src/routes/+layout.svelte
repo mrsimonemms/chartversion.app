@@ -39,7 +39,7 @@
 					</p>
 
 					<p class="subtitle">
-						Enter the chart's URL (<code>https://</code> or <code>ocr://</code>)
+						Enter the chart's URL (<code>https://</code> or <code>oci://</code>)
 						and it'll list what's in there.
 					</p>
 				</div>
