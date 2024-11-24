@@ -9,7 +9,7 @@
 		home: string;
 		description: string;
 		icon: string;
-		source: string;
+		sources: string[];
 		versions: {
 			version: string;
 			created: string;

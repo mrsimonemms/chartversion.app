@@ -12,6 +12,7 @@ header:
     - "**/*.{json,md,yml,yaml}"
     - "**/.gitkeep"
     - "**/*.svelte"
+    - "**/*.mts"
   comment: on-failure
 
 dependency:
