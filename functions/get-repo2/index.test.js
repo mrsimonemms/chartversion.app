@@ -14,21 +14,27 @@
  * limitations under the License.
  */
 
-import { sveltekit } from '@sveltejs/kit/vite';
-import { defineConfig } from 'vitest/config';
+import { describe, expect, it } from 'vitest';
+import fn from './index';
 
-export default defineConfig({
-	plugins: [sveltekit()],
-	server: {
-		host: process.env.VITE_HOST,
-		port: Number(process.env.VITE_PORT ?? 5173),
-		proxy: {
-			'/api': {
-				target: 'http://localhost:3000',
-			},
-		},
-	},
-	test: {
-		include: ['src/**/*.{test,spec}.{js,ts}'],
-	},
+describe('#GetRepo', () => {
+	it.only('should make a successful http request', async () => {
+		const req = {
+			url: 'https://chartversion.app/api/v1/repo/?repo=http://charts.jetstack.io',
+		};
+
+		const res = await fn.fetch(req, {}, {});
+
+		console.log(await res.json());
+
+		expect(res.ok).toBe(true);
+	});
+
+	it.skip('should make a successful https request');
+
+	it.skip('should make a successful oci request');
+
+	it.skip('should error when no data received');
+
+	it.skip('should error when bad data received');
 });
