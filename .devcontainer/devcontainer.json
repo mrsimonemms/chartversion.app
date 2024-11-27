@@ -1,13 +1,16 @@
 {
   "image": "ghcr.io/mrsimonemms/devcontainers/full",
   "name": "devcontainer",
-  "features": {},
+  "features": {
+    "ghcr.io/joedmck/devcontainer-features/wrangler:1": {}
+  },
   "customizations": {
     "vscode": {
       "extensions": [
         "ms-vscode.makefile-tools",
         "esbenp.prettier-vscode",
-        "svelte.svelte-vscode"
+        "svelte.svelte-vscode",
+        "tamasfe.even-better-toml"
       ],
       "settings": {}
     }

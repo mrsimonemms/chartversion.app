@@ -78,11 +78,34 @@ jobs:
         with:
           path: 'build/'
 
+  get-repo:
+    runs-on: ubuntu-latest
+    needs:
+      - commitlint
+      - pre-commit
+    defaults:
+      run:
+        working-directory: ./functions/get-repo
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Test
+        run: npm test
+
   deploy:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     needs:
       - build
+      - get-repo
 
     permissions:
       pages: write
@@ -93,6 +116,14 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Deploy
+      - name: Deploy web app
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - uses: actions/checkout@v4
+
+      - name: Deploy get-repo
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          workingDirectory: functions/get-repo
